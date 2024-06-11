@@ -4,33 +4,37 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class ChangeMaterial : MonoBehaviour
 {
     [SerializeField] private MaterialProperties[] textures;
-    [SerializeField] private Material material;
     [SerializeField] MaterialSelector materialSelector;
-    public Material Material { get => material; }
+    public string MaterialName { get => _renderer.sharedMaterial.name; }
     public MaterialProperties[] Textures { get => textures; }
     XRBaseInteractable xrBaseInteractable;
+
+    Renderer _renderer;
     private void Start()
     {
         xrBaseInteractable = GetComponent<XRBaseInteractable>();
-        xrBaseInteractable.firstSelectEntered.AddListener(ObjectSelected);
+        xrBaseInteractable.activated.AddListener(ObjectSelected);
+        _renderer = GetComponent<Renderer>();
     }
     private void OnDestroy()
     {
-        xrBaseInteractable.firstSelectEntered.RemoveListener(ObjectSelected);
+        xrBaseInteractable.activated.RemoveListener(ObjectSelected);
     }
-    public void ObjectSelected(SelectEnterEventArgs selectEnterEventArgs)
+    public void ObjectSelected(ActivateEventArgs activateEventArgs)
     {
         materialSelector.SetMaterial(this);
     }
     public void ChangeMaterialTexture(MaterialProperties newMaterial)
     {
-        material.SetTexture("_MainTex", newMaterial.texture);
-        material.SetTexture("_BumpMap", newMaterial.normalMap);
+        Debug.Log("ChangeMaterial");
+        _renderer.sharedMaterial.SetTexture("_BaseMap", newMaterial.texture);
+        _renderer.sharedMaterial.SetTexture("_BumpMap", newMaterial.normalMap ? newMaterial.normalMap : null);
+        _renderer.sharedMaterial.EnableKeyword("_NORMALMAP");
         ChangeMaterialColor(Color.white);
     }
     public void ChangeMaterialColor(Color newColor)
     {
-        material.color = newColor;
+        _renderer.sharedMaterial.color = newColor;
     }
 }
 

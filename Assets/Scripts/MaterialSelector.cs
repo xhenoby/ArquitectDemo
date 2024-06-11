@@ -18,11 +18,11 @@ public class MaterialSelector : MonoBehaviour
     }
     public void SetMaterial(ChangeMaterial changeMaterial)
     {
-        materialName.text = "Objeto: " + changeMaterial.Material.name;
+        materialName.text = "Objeto: " + changeMaterial.MaterialName;
         foreach (TextureButton textureButton in textures)
         {
             textureButton.Button.onClick.RemoveAllListeners();
-            Destroy(textureButton);
+            Destroy(textureButton.gameObject);
         }
         textures.Clear();
 
