@@ -7,6 +7,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Carpet_Berber_Multi
+    second: {fileID: 2100000, guid: a2c2e6a20ccaee845a99b736d2ff0680, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Niraj_Hair_Dark
     second: {fileID: 2100000, guid: 5f1ab45d38176ad4981520d3d8e36ede, type: 2}
   - first:
@@ -119,6 +124,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: _auto_9
     second: {fileID: 2100000, guid: b5a1294e88d712e4b8e7c9c4ef1fe65d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: transparentwhite
+    second: {fileID: 2100000, guid: c0f06831f013d2d40ba329bb4f6a1cdd, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
