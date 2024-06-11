@@ -1,14 +1,27 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Xml.Serialization;
 using UnityEngine;
-
+using UnityEngine.XR.Interaction.Toolkit;
 public class ChangeMaterial : MonoBehaviour
 {
-    [SerializeField] private MaterialProperties[] materials;
+    [SerializeField] private MaterialProperties[] textures;
     [SerializeField] private Material material;
-
+    [SerializeField] MaterialSelector materialSelector;
+    public Material Material { get => material; }
+    public MaterialProperties[] Textures { get => textures; }
+    XRBaseInteractable xrBaseInteractable;
+    private void Start()
+    {
+        xrBaseInteractable = GetComponent<XRBaseInteractable>();
+        xrBaseInteractable.firstSelectEntered.AddListener(ObjectSelected);
+    }
+    private void OnDestroy()
+    {
+        xrBaseInteractable.firstSelectEntered.RemoveListener(ObjectSelected);
+    }
+    public void ObjectSelected(SelectEnterEventArgs selectEnterEventArgs)
+    {
+        materialSelector.SetMaterial(this);
+    }
     public void ChangeMaterialTexture(MaterialProperties newMaterial)
     {
         material.SetTexture("_MainTex", newMaterial.texture);
